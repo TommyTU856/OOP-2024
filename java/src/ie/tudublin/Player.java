@@ -3,13 +3,11 @@ package ie.tudublin;
 import processing.core.PVector;
 
 public class Player {
-
     private PVector pos;
     private float rotation;
-    int col;
+    private int col;
     private float width;
-    private float height;
-    private float HalfH;
+    private float halfW;
 
     YASC yasc;
 
@@ -37,31 +35,55 @@ public class Player {
     public void setWidth(float width) {
         this.width = width;
     }
-    public float getHeight() {
-        return height;
+    public float getHalfW() {
+        return halfW;
     }
-    public void setHeight(float height) {
-        this.height = height;
+    public void setHalfW(float halfW) {
+        this.halfW = halfW;
     }
 
-    public float getHalfH() {
-        return HalfH;
-    }
-    public void setHalfH(float halfH) {
-        HalfH = halfH;
-    }
     public Player(YASC yasc, float x, float y, float rotation, int col, float width) {
         this.yasc = yasc;
         this.pos = new PVector(x, y);
         this.rotation = rotation;
         this.col = col;
         this.width = width;
-        this.HalfH = width * 0.5f;
-    }
+        this.halfW = width * 0.5f;
+    }    
 
-    public void render() {
-        yasc.circle(pos.x, pos.y, width);
+    public void render()
+    {
+        if (yasc.keyPressed)
+        {
+            if (yasc.keyCode == yasc.LEFT)
+            {
+                pos.x = pos.x - 1;
+            }
+
+            if (yasc.keyCode == yasc.RIGHT)
+            {
+                pos.x = pos.x + 1;
+            }
+
+            if (yasc.keyCode == yasc.UP)
+            {
+                pos.y = pos.y - 1;
+            }
+
+            if (yasc.keyCode == yasc.DOWN)
+            {
+                pos.y = pos.y + 1;
+            }
+
+            
+        }
+        // yasc.circle(pos.x, pos.y, width);
+        yasc.stroke(255);
+        yasc.line(pos.x - halfW, pos.y + halfW, pos.x, pos.y - halfW);
+        yasc.line(pos.x, pos.y - halfW, pos.x + halfW, pos.y + halfW);
+        yasc.line(pos.x + halfW, pos.y + halfW, pos.x, pos.y);
+        yasc.line(pos.x, pos.y, pos.x - halfW, pos.y + halfW);
+           
     }
-    
     
 }
